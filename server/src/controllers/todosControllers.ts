@@ -7,8 +7,8 @@ export const createTodo: RequestHandler = async (req, res, next) => {
     const newTodo = req.body as Todo;
     const result = await collections.todos?.insertOne(newTodo);
     result
-      ? res.status(201).send(`Successfully created a new todo with id ${result.insertedId}`)
-      : res.status(500).send('Failed to create a new game');
+      ? res.status(201).send(result)
+      : res.status(500).send('Failed to create a new todo');
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
@@ -21,6 +21,19 @@ export const getTodos: RequestHandler = async (req, res) => {
     res.status(200).send(todos);
   } catch (error) {
     res.status(500).send(error);
+  }
+}
+
+export const patchTodos: RequestHandler = async (req, res) => {
+  const id = req.params.id;
+  try{
+    const updateTodo: Todo = req.body;
+    const result = await collections.todos!.findOneAndUpdate({id: id}, {$set: {completed: updateTodo.completed}})
+    result
+      ? res.status(200).send(result)
+      : res.status(500).send('Failed to update todo.')
+  } catch (error) {
+    res.status(404).send(error);
   }
 }
 

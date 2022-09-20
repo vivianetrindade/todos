@@ -31,8 +31,8 @@ const TodoForm: React.FC<Props> = ({ addTodo }) => {
     }
   }
   return (
-    <section className='section__creteTodo'>
-      <h2 className="todoadd__title">Rgegister New Todo</h2>
+    <section className='section__createTodo'>
+      <h2 className="todoadd__title">Register New Todo</h2>
       <form onSubmit={handleSubmit} action="" className="form__todolist">
         <label className="todo__title">Title</label>
         <input type="text"

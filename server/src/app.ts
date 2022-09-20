@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction} from 'express';
+import express from 'express';
 import cors from 'cors'
 import bodyParser from 'body-parser';
 import todoRoutes from './routes/todos';
@@ -7,12 +7,13 @@ import { connectToDatabase } from './controllers/db';
 const app = express();
 
 
-
+app.use(cors());
 app.use(bodyParser.json());
+
 
 connectToDatabase()
   .then(() => {
-    // app.use(cors);
+    
     app.use('/todos', todoRoutes);
     app.listen(8080, () => console.log('connected') );
   })
